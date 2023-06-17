@@ -1,0 +1,12 @@
+ Board in FS mode:
+
+              Product ID: 0x0005
+              Vendor ID: 0x2e8a
+              Version: 1.00
+              Serial Number: e661ac8863727c28
+              Speed: Up to 12 Mb/s
+              Manufacturer: MicroPython
+              Location ID: 0x01130000 / 4
+              Current Available (mA): 500
+              Current Required (mA): 250
+              Extra Operating Current (mA): 0

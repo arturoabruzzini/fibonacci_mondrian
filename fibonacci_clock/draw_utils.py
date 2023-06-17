@@ -5,14 +5,28 @@ YELLOW = None
 BLUE = None
 colour_map = None
 
+brightness = 50
+
+
+def set_brightness(graphics, diff):
+    global brightness
+    brightness = min(max(brightness + diff, 0), 100)
+    print('Brightness set to', brightness)
+    set_draw_utils(graphics)
+
+
+def dim(val):
+    return round(val * brightness / 100)
+
+
 def set_draw_utils(graphics):
     global WHITE, BLACK, RED, YELLOW, BLUE, colour_map
     # set up some pens to use later
-    WHITE = graphics.create_pen(255, 255, 255)
+    WHITE = graphics.create_pen(dim(255), dim(255), dim(255))
     BLACK = graphics.create_pen(0, 0, 0)
-    RED = graphics.create_pen(255, 0, 0)
-    YELLOW = graphics.create_pen(255, 255, 0)
-    BLUE = graphics.create_pen(0, 0, 255)
+    RED = graphics.create_pen(dim(255), 0, 0)
+    YELLOW = graphics.create_pen(dim(255), dim(255), 0)
+    BLUE = graphics.create_pen(0, 0, dim(255))
 
     colour_map = {
         'white': WHITE,
@@ -23,6 +37,7 @@ def set_draw_utils(graphics):
     }
 
     graphics.set_font("bitmap8")
+
 
 def clear_drawing(graphics):
     graphics.set_pen(BLACK)
