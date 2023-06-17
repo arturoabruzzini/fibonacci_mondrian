@@ -10,23 +10,13 @@ import machine
 import network
 import ntptime
 
-try:
-    from secrets import WIFI_SSID, WIFI_PASSWORD
-    wifi_available = True
-except ImportError:
-    print("Create secrets.py with your WiFi credentials to get time from NTP")
-    wifi_available = False
+from secrets import *
 
 # create the rtc object
 rtc = machine.RTC()
 
-
+# Connect to wifi and synchronize the RTC time from NTP
 def sync_time():
-    # Connect to wifci and synchronize the RTC time from NTP
-    if not wifi_available:
-        get_time()
-        return
-
     # Start connection
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
@@ -48,21 +38,15 @@ def sync_time():
         try:
             ntptime.settime()
             print("Time set")
-            get_time()
         except OSError:
             pass
 
     wlan.disconnect()
     wlan.active(False)
 
-
-# Get the current date and time
-year, month, day, wd, hour, minute, second, _ = rtc.datetime()
-
 DAYS_IN_MONTHS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
-
-def isdst():
+def isdst(month, day, wd):
     # Compute last sunday of march
     last_sunday_march = day - ((wd + 6) % 7) + 1
     if month == 3 and day < last_sunday_march:
@@ -89,9 +73,8 @@ def isdst():
 
 
 def get_time():
-    global year, month, day, wd, hour, minute, second
-
     year, month, day, wd, hour, minute, second, _ = rtc.datetime()
     # NTP synchronizes the time to UTC, this allows you to adjust the displayed time
-    utc_offset = 1 if isdst() else 0
-    return year, month, day, wd, (hour + utc_offset) % 24, minute, second
+    utc_offset = 1 if isdst(month, day, wd) else 0
+    hour = (hour + utc_offset) % 24
+    return hour, minute, second
