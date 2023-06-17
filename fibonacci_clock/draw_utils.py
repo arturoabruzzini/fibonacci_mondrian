@@ -56,6 +56,8 @@ def draw_wait_text(graphics):
     graphics.text("WIFI...", 1, 20, scale=1)
 
 
-def draw_rect(graphics, x, y, size, colour):
+def draw_rect(graphics, x, y, size, colour, invert=False):
+    x_to_use = x if not invert else 32 - x - size
+    y_to_use = y if not invert else 64 - y - size
     graphics.set_pen(colour_map[colour])
-    graphics.rectangle(x, y, size, size)
+    graphics.rectangle(x_to_use, y_to_use, size, size)

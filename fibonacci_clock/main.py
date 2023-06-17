@@ -20,8 +20,9 @@ set_draw_utils(graphics)
 last_second = None
 
 
-def draw_everything(hour, minute, second, offset_x, offset_y):
-    draw_fibonacci(graphics, hour, minute, offset_x, offset_y)
+def draw_everything(hour, minute, second, offset_x, offset_y, invert=False):
+    # draw_fibonacci(graphics, minute % 35, second, offset_x, offset_y, invert)
+    draw_fibonacci(graphics, hour, minute, offset_x, offset_y, invert)
 
 
 def redraw_display(hour, minute, second):
@@ -29,8 +30,10 @@ def redraw_display(hour, minute, second):
 
     offset_x = 4
     offset_y = 4
-    draw_everything(minute % 35, second, second, offset_x, offset_y)
-    draw_everything(minute % 35, second, second, offset_x+64, offset_y-32)
+
+    draw_everything(hour, minute, second, offset_x -
+                    32, offset_y+32, invert=True)
+    draw_everything(hour, minute, second, offset_x+64, offset_y-32)
 
     # calculate text position so that it is centred
     # w = graphics.measure_text(clock, 1)
