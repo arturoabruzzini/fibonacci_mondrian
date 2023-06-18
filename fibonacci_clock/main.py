@@ -8,6 +8,7 @@ from interstate75 import *
 from draw_utils import *
 from time_utils import *
 from fibonacci import *
+from borders import *
 
 i75 = Interstate75(display=DISPLAY_INTERSTATE75_128X32)
 graphics = i75.display
@@ -21,6 +22,7 @@ last_second = None
 
 
 def draw_everything(hour, minute, second, offset_x, offset_y, invert=False):
+    draw_borders(graphics, second, offset_x, offset_y, invert)
     # draw_fibonacci(graphics, minute % 35, second, offset_x, offset_y, invert)
     draw_fibonacci(graphics, hour, minute, offset_x, offset_y, invert)
 
@@ -48,7 +50,7 @@ def redraw_display(hour, minute, second):
 
 draw_wait_text(graphics)
 i75.update()
-# sync_time()
+sync_time()
 
 switch_a_pressed = False
 switch_b_pressed = False

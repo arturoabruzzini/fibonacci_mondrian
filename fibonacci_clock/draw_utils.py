@@ -5,7 +5,7 @@ YELLOW = None
 BLUE = None
 colour_map = None
 
-brightness = 50
+brightness = 100
 
 
 def set_brightness(graphics, diff):
@@ -13,6 +13,11 @@ def set_brightness(graphics, diff):
     brightness = min(max(brightness + diff, 0), 100)
     print('Brightness set to', brightness)
     set_draw_utils(graphics)
+
+    w = graphics.measure_text(str(brightness), 1)
+    x = 64 + int(15 - w / 2)
+    y = 13
+    draw_text(graphics, str(brightness), x, y)
 
 
 def dim(val):
@@ -51,13 +56,17 @@ def draw_text(graphics, text, x, y):
 
 def draw_wait_text(graphics):
     graphics.set_pen(WHITE)
-    graphics.text("Wait", 1, 4, scale=1)
-    graphics.text("for", 1, 12, scale=1)
-    graphics.text("WIFI...", 1, 20, scale=1)
+    graphics.text("Wait", 65, 4, scale=1)
+    graphics.text("for", 65, 12, scale=1)
+    graphics.text("WIFI...", 65, 20, scale=1)
 
 
-def draw_rect(graphics, x, y, size, colour, invert=False):
-    x_to_use = x if not invert else 32 - x - size
-    y_to_use = y if not invert else 64 - y - size
+def draw_rect(graphics, x, y, width, height, colour, invert=False):
+    x_to_use = x if not invert else 32 - x - width
+    y_to_use = y if not invert else 64 - y - height
     graphics.set_pen(colour_map[colour])
-    graphics.rectangle(x_to_use, y_to_use, size, size)
+    graphics.rectangle(x_to_use, y_to_use, width, height)
+
+
+def draw_square(graphics, x, y, size, colour, invert=False):
+    draw_rect(graphics, x, y, size, size, colour, invert)

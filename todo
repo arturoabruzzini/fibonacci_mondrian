@@ -1,6 +1,12 @@
+# Done
+
 - show brightness level in the middle of blue square when changing it
   - either just till it refreshes a second later, or for a few seconds
-- add optional seconds animation in bottom left 21x21 or around the edge
 - add optional static rectangles around the edge
+- add optional seconds animation in bottom left 21x21 or around the edge
+
+# Todo
+
 - add startup/fun animation cycling through everything
 - add thing to randomise colours
+- add tide info in bottom left 21x21
