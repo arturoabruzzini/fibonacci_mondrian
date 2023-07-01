@@ -26,7 +26,7 @@ for i in range(len(quadrant_coords_min)):
 
 minutes_config = {
     'coords': quadrant_coords_min,
-    'colour': ['blue', 'blue', 'red', 'yellow', 'white', 'yellow', 'blue', 'red', 'blue']
+    'colour': ['red', 'blue', 'blue', 'blue', 'yellow', 'yellow', 'red', 'red', 'blue']
 }
 
 # switch x and y, then flip y axis
@@ -38,7 +38,7 @@ for i in range(len(quadrant_coords_h)):
 
 hours_config = {
     'coords': quadrant_coords_h[:-1],
-    'colour': ['white', 'white', 'yellow', 'blue', 'red', 'white', 'red', 'yellow']
+    'colour': ['yellow', 'blue', 'blue', 'blue', 'red', 'red', 'yellow', 'yellow']
 }
 
 
@@ -80,14 +80,16 @@ def draw_fibonacci(graphics, hour, minute, offset_x, offset_y, invert=False):
     for index in range(len(minutes_config['coords'])):
         x, y = minutes_config['coords'][index]
         active = quadrants['minutes'][index] if index == 0 else quadrants['minutes'][index-1]
-        if active == '0' or colour_all_quadrants:
-            draw_square(graphics, x + offset_x, y + offset_y,
-                        fibonacci_all[index], minutes_config['colour'][index], invert)
+        colour_to_use = minutes_config['colour'][index] if (
+            active == '1' or colour_all_quadrants) else 'white'
+        draw_square(graphics, x + offset_x, y + offset_y,
+                    fibonacci_all[index], colour_to_use, invert)
 
     # draw hours
     for index in range(len(hours_config['coords'])):
         x, y = hours_config['coords'][index]
         active = quadrants['hours'][index] if index == 0 else quadrants['hours'][index-1]
-        if active == '0' or colour_all_quadrants:
-            draw_square(graphics, x + offset_x, y + offset_y,
-                        fibonacci_all[index], hours_config['colour'][index], invert)
+        colour_to_use = hours_config['colour'][index] if (
+            active == '1' or colour_all_quadrants) else 'white'
+        draw_square(graphics, x + offset_x, y + offset_y,
+                    fibonacci_all[index], colour_to_use, invert)

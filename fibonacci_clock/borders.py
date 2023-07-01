@@ -6,27 +6,27 @@ border_size_sm = 4
 border_config = [
     # top
     [-border_size_sm, -border_size_sm, border_size_sm + 8, border_size_sm, 'white'],
-    [8, -border_size_sm, 13, border_size_sm, 'blue'],
-    [21, -border_size_sm, 21, border_size_sm, 'red'],
-    [42, -border_size_sm, 13, border_size_sm, 'yellow'],
+    [8, -border_size_sm, 13, border_size_sm, 'white'],
+    [21, -border_size_sm, 34, border_size_sm, 'blue'],
+    # [42, -border_size_sm, 13, border_size_sm, 'yellow'],
 
     # right
     [55, -border_size, border_size, border_size + 13, 'white'],
-    [55, 13, border_size, 21, 'red'],
+    [55, 13, border_size, 21, 'white'],
     [55, 34, border_size, 13, 'yellow'],
-    [55, 47, border_size, 8 + border_size, 'blue'],
+    [55, 47, border_size, 8 + border_size, 'white'],
 
     # bottom
-    [-border_size_sm, 55, border_size_sm + 8, border_size, 'red'],
-    [8, 55, 26, border_size, 'yellow'],
-    [34, 55, 8, border_size, 'blue'],
-    [42, 55, 13, border_size, 'white'],
+    [-border_size_sm, 55, border_size_sm + 8, border_size, 'blue'],
+    [8, 55, 26, border_size, 'white'],
+    [34, 55, 21, border_size, 'red'],
+    # [42, 55, 13, border_size, 'white'],
 
     # left
-    [-border_size_sm, 0, border_size_sm, 13, 'red'],
+    [-border_size_sm, 0, border_size_sm, 13, 'white'],
     [-border_size_sm, 13, border_size_sm, 8, 'white'],
-    [-border_size_sm, 21, border_size_sm, 26, 'yellow'],
-    [-border_size_sm, 47, border_size_sm, 8, 'blue'],
+    [-border_size_sm, 21, border_size_sm, 13, 'yellow'],
+    [-border_size_sm, 34, border_size_sm, 21, 'white'],
 ]
 
 
