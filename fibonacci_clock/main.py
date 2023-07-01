@@ -50,17 +50,27 @@ def redraw_display(hour, minute, second):
 
 draw_wait_text(graphics)
 i75.update()
-sync_time()
+# sync_time()
 
 switch_a_pressed = False
 switch_b_pressed = False
 
+animate = False
+mock_time = 0
+
 while True:
 
     hour, minute, second = get_time()
-    if second != last_second:
+
+    if animate:
         clear_drawing(graphics)
-        redraw_display(hour, minute, second)
+        redraw_display(mock_time, mock_time, mock_time)
+        mock_time = mock_time + 1 if mock_time < 59 else 0
+        time.sleep(0.1)
+    else:
+        if second != last_second:
+            clear_drawing(graphics)
+            redraw_display(hour, minute, second)
 
     # Update the display
     i75.update()

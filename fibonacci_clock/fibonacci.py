@@ -38,7 +38,7 @@ for i in range(len(quadrant_coords_h)):
 
 hours_config = {
     'coords': quadrant_coords_h[:-1],
-    'colour': ['blue', 'blue', 'yellow', 'blue', 'red', 'white', 'red', 'yellow']
+    'colour': ['white', 'white', 'yellow', 'blue', 'red', 'white', 'red', 'yellow']
 }
 
 
