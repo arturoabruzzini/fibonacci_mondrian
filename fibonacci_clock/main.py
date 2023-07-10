@@ -23,7 +23,8 @@ last_second = None
 
 def draw_everything(hour, minute, second, offset_x, offset_y, invert=False):
     draw_borders(graphics, second, offset_x, offset_y, invert)
-    # draw_fibonacci(graphics, minute % 35, second, offset_x, offset_y, invert)
+    draw_rect(graphics, offset_x, 34 + offset_y,
+              21, 21, 'white', invert)
     draw_fibonacci(graphics, hour, minute, offset_x, offset_y, invert)
 
 
@@ -37,20 +38,10 @@ def redraw_display(hour, minute, second):
                     32, offset_y+32, invert=True)
     draw_everything(hour, minute, second, offset_x+64, offset_y-32)
 
-    # calculate text position so that it is centred
-    # w = graphics.measure_text(clock, 1)
-    # x = int(width / 2 - w / 2 + 1)
-    # y = 11
-    # draw_text(graphics, clock, x, y)
-    # draw_rect(graphics, 0, 0, 10, 'red')
-    # draw_rect(graphics, 0, 22, 10, 'yellow')
-    # draw_rect(graphics, 22, 0, 10, 'white')
-    # draw_rect(graphics, 22, 22, 10, 'blue')
-
 
 draw_wait_text(graphics)
 i75.update()
-# sync_time()
+sync_time()
 
 switch_a_pressed = False
 switch_b_pressed = False

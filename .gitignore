@@ -2,4 +2,3 @@ interstate75_examples
 myenv
 .DS_Store
 __pycache__
-secrets.py
