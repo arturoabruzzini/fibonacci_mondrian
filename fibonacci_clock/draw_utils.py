@@ -8,16 +8,12 @@ colour_map = None
 brightness = 100
 
 
-def set_brightness(graphics, diff):
+def set_brightness(graphics, value):
     global brightness
-    brightness = min(max(brightness + diff, 0), 100)
+    brightness = min(max(value, 0), 100)
     print('Brightness set to', brightness)
     set_draw_utils(graphics)
-
-    w = graphics.measure_text(str(brightness), 1)
-    x = 64 + int(15 - w / 2)
-    y = 13
-    draw_text(graphics, str(brightness), x, y)
+    return brightness
 
 
 def dim(val):
@@ -49,9 +45,12 @@ def clear_drawing(graphics):
     graphics.clear()
 
 
-def draw_text(graphics, text, x, y):
-    graphics.set_pen(WHITE)
-    graphics.text(text, x, y, -1, 1)
+def draw_text(graphics, text, x, y, flip=False):
+    graphics.set_font("sans")
+    graphics.set_thickness(2)
+    TEXT = graphics.create_pen(255, 255, 0)
+    graphics.set_pen(TEXT)
+    graphics.text(text, x, y, -1, 0.5, 180 if flip else 0)
 
 
 def draw_wait_text(graphics):
