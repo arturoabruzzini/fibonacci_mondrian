@@ -16,6 +16,8 @@ from secrets import *
 rtc = machine.RTC()
 
 # Connect to wifi and synchronize the RTC time from NTP
+
+
 def sync_time():
     # Start connection
     wlan = network.WLAN(network.STA_IF)
@@ -44,7 +46,9 @@ def sync_time():
     wlan.disconnect()
     wlan.active(False)
 
+
 DAYS_IN_MONTHS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
 
 def isdst(month, day, wd):
     # Compute last sunday of march

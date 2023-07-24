@@ -19,7 +19,7 @@ height = i75.height
 
 set_draw_utils(graphics)
 
-last_second = None
+last_minute = None
 
 veml = veml7700.VEML7700(address=0x10, i2c=i75.i2c, it=100, gain=1/8)
 
@@ -44,7 +44,7 @@ def redraw_display(hour, minute, second):
 
 draw_wait_text(graphics)
 i75.update()
-# sync_time()
+sync_time()
 
 switch_a_pressed = False
 switch_b_pressed = False
@@ -63,11 +63,13 @@ def automatic_brightness():
     lux_val = veml.read_lux()
     print('Lux value:', lux_val)
     brightness = set_brightness(
-        graphics, interpolate(lux_val, 0, 500, 10, 100))
+        graphics, interpolate(lux_val, 20, 140, 30, 100))
 
-    draw_text(graphics, str(round(brightness)), 68, 20)
-    draw_text(graphics, str(round(lux_val)), 58, 18, True)
+    # draw_text(graphics, str(round(brightness)), 68, 20)
+    # draw_text(graphics, str(round(lux_val)), 58, 18, True)
 
+
+automatic_brightness()
 
 while True:
 
@@ -79,7 +81,7 @@ while True:
         mock_time = mock_time + 1 if mock_time < 59 else 0
         time.sleep(0.1)
     else:
-        if second != last_second:
+        if minute != last_minute:
             clear_drawing(graphics)
             redraw_display(hour, minute, second)
             automatic_brightness()
@@ -101,3 +103,4 @@ while True:
     #     switch_b_pressed = True
     # else:
     #     switch_b_pressed = False
+

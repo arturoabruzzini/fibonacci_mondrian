@@ -5,13 +5,15 @@ YELLOW = None
 BLUE = None
 colour_map = None
 
-brightness = 100
-
+brightness = 30
+brightness_white = 30
 
 def set_brightness(graphics, value):
-    global brightness
-    brightness = min(max(value, 0), 100)
+    global brightness, brightness_white
+    brightness = round(min(max(value, 0), 100))
     print('Brightness set to', brightness)
+    brightness_white = round(max(brightness - 0, 20))
+    print('White brightness set to', brightness_white)
     set_draw_utils(graphics)
     return brightness
 
@@ -23,7 +25,9 @@ def dim(val):
 def set_draw_utils(graphics):
     global WHITE, BLACK, RED, YELLOW, BLUE, colour_map
     # set up some pens to use later
-    WHITE = graphics.create_pen(dim(255), dim(255), dim(255))
+    white_val = round((255 * brightness_white) / 100)
+    print("white_val", white_val)
+    WHITE = graphics.create_pen(white_val, white_val, white_val)
     BLACK = graphics.create_pen(0, 0, 0)
     RED = graphics.create_pen(dim(255), 0, 0)
     YELLOW = graphics.create_pen(dim(255), dim(255), 0)
@@ -69,3 +73,4 @@ def draw_rect(graphics, x, y, width, height, colour, invert=False):
 
 def draw_square(graphics, x, y, size, colour, invert=False):
     draw_rect(graphics, x, y, size, size, colour, invert)
+
