@@ -11,9 +11,9 @@ brightness_white = 30
 def set_brightness(graphics, value):
     global brightness, brightness_white
     brightness = round(min(max(value, 0), 100))
-    print('Brightness set to', brightness)
+    # print('Brightness set to', brightness)
     brightness_white = round(max(brightness - 0, 20))
-    print('White brightness set to', brightness_white)
+    # print('White brightness set to', brightness_white)
     set_draw_utils(graphics)
     return brightness
 
@@ -26,7 +26,7 @@ def set_draw_utils(graphics):
     global WHITE, BLACK, RED, YELLOW, BLUE, colour_map
     # set up some pens to use later
     white_val = round((255 * brightness_white) / 100)
-    print("white_val", white_val)
+    # print("white_val", white_val)
     WHITE = graphics.create_pen(white_val, white_val, white_val)
     BLACK = graphics.create_pen(0, 0, 0)
     RED = graphics.create_pen(dim(255), 0, 0)

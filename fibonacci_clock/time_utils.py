@@ -8,7 +8,7 @@
 import time
 import machine
 import network
-import ntptime
+import urequests
 
 from secrets import *
 
@@ -28,57 +28,27 @@ def sync_time():
     # Wait for connect success or failure
     max_wait = 100
     while max_wait > 0:
+        print('waiting for connection...', wlan.status())
         if wlan.status() < 0 or wlan.status() >= 3:
             break
         max_wait -= 1
-        print('waiting for connection...')
         time.sleep(0.2)
 
     if max_wait > 0:
         print("Connected")
-
-        try:
-            ntptime.settime()
-            print("Time set")
-        except OSError:
-            pass
+        
+        r = urequests.get("https://timeapi.io/api/Time/current/coordinate?latitude=50.8&longitude=-0.1")
+        # open the json data
+        j = r.json()
+        r.close()
+        
+        #rtc.datetime((j["seconds"], j["minute"], j["hour"], 1, j["day"], j["month"], j["year"]))
+        rtc.datetime((j["year"], j["month"], j["day"], 0, j["hour"], j["minute"], j["seconds"], 0))
 
     wlan.disconnect()
     wlan.active(False)
 
-
-DAYS_IN_MONTHS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-
-
-def isdst(month, day, wd):
-    # Compute last sunday of march
-    last_sunday_march = day - ((wd + 6) % 7) + 1
-    if month == 3 and day < last_sunday_march:
-        last_sunday_march -= 7
-    while last_sunday_march + 7 <= DAYS_IN_MONTHS[month - 1]:
-        last_sunday_march += 7
-
-    # Compute last sunday of october
-    last_sunday_october = day - ((wd + 6) % 7) + 1
-    if month == 10 and day < last_sunday_october:
-        last_sunday_october -= 7
-    while last_sunday_october + 7 <= DAYS_IN_MONTHS[9]:
-        last_sunday_october += 7
-
-    # Check if we're in DST
-    if month > 3 and month < 10:
-        return True
-    elif month == 3 and day >= last_sunday_march:
-        return True
-    elif month == 10 and day < last_sunday_october:
-        return True
-    else:
-        return False
-
-
 def get_time():
     year, month, day, wd, hour, minute, second, _ = rtc.datetime()
-    # NTP synchronizes the time to UTC, this allows you to adjust the displayed time
-    utc_offset = 1 if isdst(month, day, wd) else 0
-    hour = (hour + utc_offset) % 24
     return hour, minute, second
+

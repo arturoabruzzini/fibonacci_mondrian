@@ -82,13 +82,14 @@ while True:
         time.sleep(0.1)
     else:
         if minute != last_minute:
+            print('redrawing', hour, minute, second)
+            automatic_brightness()
             clear_drawing(graphics)
             redraw_display(hour, minute, second)
-            automatic_brightness()
 
     # Update the display
     i75.update()
-    last_second = second
+    last_minute = minute
 
     # if i75.switch_pressed(SWITCH_A):
     #     if not switch_a_pressed:
